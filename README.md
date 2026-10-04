@@ -7,7 +7,8 @@ An asset-tracking app for everything you buy: gadgets, sneakers, figures, gold, 
 
 Built natively with **SwiftUI + SwiftData**, iOS 17+. All data stays on your phone. Nothing is uploaded to any server.
 
-![Asset detail: daily cost, payback progress and status at a glance](docs/screenshot-asset-detail.jpg)
+<img width="1279" height="2781" alt="acbcb80c8fe598a67313385dd3ee3199" src="https://github.com/user-attachments/assets/00865c82-bfdf-497a-aae0-f6ecb5940bb2" />
+
 
 ## What it does
 
