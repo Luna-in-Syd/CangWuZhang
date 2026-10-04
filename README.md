@@ -93,7 +93,7 @@ Cangwuzhang/
 2. **数据导出 / 资产报告**——导出 PDF 或表格，方便备份、分享或者年底盘点。
 3. **iCloud 同步**——多设备自动同步，技术方案是把 `ModelConfiguration` 换成启用
    CloudKit 的配置，并在 Signing & Capabilities 里加 iCloud + CloudKit 能力。
-4. **会员订阅**——StoreKit 2 做内购，解锁高级功能（比如数据导出、更长的趋势图周期）。
+
 
 更远一点、目前还没排期的想法：
 - 投资收藏型现值能接入闲鱼 / 二手平台行情自动更新，而不是手动录入
