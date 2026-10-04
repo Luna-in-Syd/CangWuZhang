@@ -1,0 +1,33 @@
+name: CangWuZhang
+options:
+  bundleIdPrefix: com.luna
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+targets:
+  CangWuZhang:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: CangWuZhang
+    info:
+      path: Generated/Info.plist
+      properties:
+        CFBundleDisplayName: 藏物账
+        NSCameraUsageDescription: 用于拍摄藏品照片，自动生成贴纸卡片
+        NSPhotoLibraryUsageDescription: 用于从相册选择藏品照片
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.luna.cangwuzhang
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic

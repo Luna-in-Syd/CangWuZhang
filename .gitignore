@@ -1,0 +1,29 @@
+# ===== macOS =====
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ===== Xcode =====
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcuserdatad/
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xccheckout
+*.xcscmblueprint
+
+# ===== Swift Package Manager =====
+.build/
+.swiftpm/
+Packages/
+
+# ===== 编辑器 / 临时文件 =====
+*.swp
+*~
+.idea/
