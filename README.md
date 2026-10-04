@@ -1,3 +1,101 @@
+[README.md](https://github.com/user-attachments/files/33021709/README.md)
+# 藏物账（CangWuZhang）# CangWuZhang (藏物账)
+
+**Track what you own, and what it actually costs you per day.**
+
+An asset-tracking app for everything you buy: gadgets, sneakers, figures, gold, Moutai, luxury goods, game accounts, memberships. Log it when you buy it, and the app works out what it costs you per day. When you sell something, it shows the real profit or loss, so you can see where your money actually goes and cut down on impulse buys.
+
+Built natively with **SwiftUI + SwiftData**, iOS 17+. All data stays on your phone. Nothing is uploaded to any server.
+
+![Asset detail: daily cost, payback progress and status at a glance](docs/screenshot-asset-detail.jpg)
+
+## What it does
+
+**Log anything you own**
+Gadgets, sneakers, figures, luxury goods, gold, Moutai, game accounts, memberships, and more. Record the purchase price, the date and a note, then tag items to group and filter them.
+
+**On-device AI cutout**
+Take a photo or pick one from your library. Apple's Vision framework finds the subject and removes the background entirely on device, turning each item into a transparent sticker for your own digital display case. Fully offline, no third-party service, no cost.
+
+**Three cost models: not everything should be measured by daily cost**
+A core idea in this version. Things hold their value in different ways, so the app splits them into three models. A default is picked automatically from the category, and you can override it:
+
+| Cost model | Best for | How it works |
+|---|---|---|
+| Ongoing use | Gadgets, sneakers, luxury goods, memberships | Daily cost = purchase price ÷ days used. The longer you keep it, the cheaper it gets. |
+| One-off consumption | Opened Moutai, food and consumables | No daily cost. Just the purchase price and a consumed / not-consumed state. |
+| Investment / collection | Gold, sealed collectible Moutai | No daily cost. You enter a current value instead, and the app calculates unrealised profit and percentage change. |
+
+**Asset status tracking**
+Active → Idle → Sold (or not-consumed → consumed for consumables). Follows an item through its whole life, from purchase to sale.
+
+**Daily cost and depreciation** (the core of the ongoing-use model)
+Daily cost is calculated automatically as purchase price ÷ days used. You can set a target daily cost and watch a payback progress bar on the detail page. A trend chart shows the daily cost falling over time, so you can see an item becoming better value the longer you keep it.
+
+**Sell-off profit and loss review**
+Enter the sale price and the app calculates total profit or loss and the real daily depreciation. For the impulse buys you barely used, the numbers after selling make the real cost obvious.
+
+**Dashboard**
+Total value held (collectibles at current value, everything else at purchase price), item counts by status, a category breakdown pie chart, holding-duration distribution, a 12-month spending trend, resale retention rate, and unrealised gains on collected items.
+
+**Tag management**
+Under "Me" → "Tag management" you can see every tag you have used and how many items carry it, and rename (merging duplicates) or delete them.
+
+**Sticker view / list view**
+The main display case switches between two views, with filters by status, category and tag, plus search by name or tag.
+
+## Running it on your Mac
+
+The project was actually created with Xcode's built-in "New Project" wizard, not through the XcodeGen flow described in `project.yml`. That file was a fallback from the original handover; the generated `Cangwuzhang.xcodeproj` is what is in use.
+
+1. Double-click `Cangwuzhang.xcodeproj` to open it in Xcode (open the project, not the outer folder).
+2. Select the `Cangwuzhang` target on the left → **Signing & Capabilities**, and pick your own Apple ID as the Team. A free personal account is enough for on-device debugging; you will need to re-sign every 7 days.
+3. Pick a simulator (iPhone 15 or later, iOS 17+) or plug in a device, then ⌘R to run. Use ⌘B to check for compile errors.
+4. The first time you install on a real device, trust your developer identity under Settings → General → VPN & Device Management.
+
+If you ever need to rebuild the project on a new Mac, or the `.xcodeproj` gets corrupted, create a new SwiftUI + SwiftData app project following the fields in `project.yml` (any Bundle ID; set Minimum Deployment to iOS 17), drag in the `.swift` files under `CangWuZhang/` keeping the current folder structure, and add `NSCameraUsageDescription` and `NSPhotoLibraryUsageDescription` to Info.
+
+## Project structure
+
+```
+Cangwuzhang/
+  Cangwuzhang.xcodeproj/        # the Xcode project actually in use
+  CangWuZhang/
+    App/CangWuZhangApp.swift    # app entry point + SwiftData container
+    Models/                     # Item model, category / status / cost-model enums
+    Utilities/                  # cost calculation, AI cutout, formatters
+    Views/
+      RootTabView.swift         # three tabs: Showcase / Dashboard / Me
+      Showcase/                 # display case (sticker grid + list + filters)
+      AssetDetail/               # detail page, sell review, current value update
+      AddEdit/                  # add / edit form, photo picker, tag input
+      Dashboard/                 # dashboard charts
+      Settings/                  # "Me": tag management + roadmap
+    Assets.xcassets/
+```
+
+## What's next
+
+Aligned with the roadmap inside the app's "Me" tab, roughly in priority order:
+
+1. **Wishlist** — record things you want to buy, with an estimated price and estimated daily cost, and look at it before you buy.
+2. **Data export / asset report** — export to PDF or a spreadsheet for backup, sharing, or a year-end review.
+3. **iCloud sync** — automatic sync across devices. The plan is to swap `ModelConfiguration` for a CloudKit-enabled one and add the iCloud + CloudKit capability in Signing & Capabilities.
+
+Further out, not yet scheduled:
+- Auto-update current values for collectibles from second-hand market listings, instead of entering them by hand
+- Export sticker cards as images for sharing on social platforms
+- Batch tag editing and a tag-level statistics dashboard
+- A home screen widget showing today's total daily cost at a glance
+
+## Known limitations
+
+- All data lives only on this device (SwiftData). Before switching phones or deleting the app, export your data (once that feature ships) or wait for iCloud sync.
+- In "total value held", items on the ongoing-use and one-off models count at their purchase price, while collectibles count at the current value you enter by hand. The app does not look up market prices, so you need to update that value yourself from time to time.
+- The Vision cutout (`VNGenerateForegroundInstanceMaskRequest`) depends on how clear the subject is in the photo. If it fails, the app falls back to the original image instead of blocking the entry flow.
+
+---
+
 # 藏物账（CangWuZhang）
 
 一个类似"有数"的万物资产记录 App：数码、球鞋手办、黄金茅台、奢品、游戏账号、会员权益……
@@ -34,7 +132,7 @@
 还有日均成本随时间下降的趋势曲线图，直观看到"这东西已经越用越值了"。
 
 **闲置卖出盈亏复盘**
-填入卖出价格，自动算出总盈亏、实际日均损耗——冲动消费买了没怎么用的东西，
+填入卖出价格，自动算出总盈亏、实际日均损耗。冲动消费买了没怎么用的东西，
 卖掉之后能清楚看到真实亏了多少，帮你克制下一次剁手。
 
 **资产总览数据看板**
@@ -94,7 +192,6 @@ Cangwuzhang/
 3. **iCloud 同步**——多设备自动同步，技术方案是把 `ModelConfiguration` 换成启用
    CloudKit 的配置，并在 Signing & Capabilities 里加 iCloud + CloudKit 能力。
 
-
 更远一点、目前还没排期的想法：
 - 投资收藏型现值能接入闲鱼 / 二手平台行情自动更新，而不是手动录入
 - 贴纸卡片支持导出成图片分享到社交平台
@@ -105,7 +202,9 @@ Cangwuzhang/
 
 - 所有数据只存在这台手机本地（SwiftData），换机 / 删除 App 前记得先做数据导出（等这个功能上线）
   或者等 iCloud 同步做完。
-- "持有资产总值"里，持续使用型 / 一次性消耗型按买入价计入，投资收藏型按你手动填的"现值"计入——
+- "持有资产总值"里，持续使用型 / 一次性消耗型按买入价计入，投资收藏型按你手动填的"现值"计入，
   现值需要自己不定期更新，App 不会自动查市场价。
 - Vision 抠图（`VNGenerateForegroundInstanceMaskRequest`）依赖照片里主体是否清晰，
   识别失败时会自动退回用原图，不会阻断录入流程。
+
+
